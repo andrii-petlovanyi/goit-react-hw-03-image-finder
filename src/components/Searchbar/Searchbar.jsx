@@ -10,19 +10,23 @@ export class Searchbar extends Component {
   state = {
     search: '',
   };
+
   onChange = e => {
     const { name, value } = e.currentTarget;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value.trim() });
   };
+
   reset = () => {
     this.setState({ search: '' });
   };
+
   onSubmit = e => {
     e.preventDefault();
     const searchQuerry = this.state.search;
     this.props.onSubmit(searchQuerry);
     this.reset();
   };
+
   render() {
     return (
       <SearchbarWrapper>

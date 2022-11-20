@@ -14,6 +14,9 @@ export const Backdrop = styled.div`
 `;
 
 export const ModalWrapper = styled.div`
-  max-width: calc(100vw - 48px);
-  max-height: calc(100vh - 24px);
+  max-width: calc(100vw - 20%);
+  max-height: calc(100vh - 20%);
+  display: flex;
+  justify-content: center;
+  object-fit: cover;
 `;
