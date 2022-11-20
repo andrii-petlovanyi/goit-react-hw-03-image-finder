@@ -1,16 +1,28 @@
 import { GalleryItem } from './ImageGalleryItem.styled';
+import PropTypes from 'prop-types';
 
-export const ImageGalleryItem = ({ picture, onClick }) => {
-  const { id, webformatURL, largeImageURL } = picture;
+export const ImageGalleryItem = ({
+  webformatURL = '',
+  largeImageURL = '',
+  tags = '',
+  onClick = () => {},
+}) => {
   return (
     <>
-      <GalleryItem key={id}>
+      <GalleryItem>
         <img
           src={webformatURL}
-          alt="content by search"
+          alt={tags}
           onClick={() => onClick(largeImageURL)}
         />
       </GalleryItem>
     </>
   );
+};
+
+ImageGalleryItem.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  webformatURL: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
 };

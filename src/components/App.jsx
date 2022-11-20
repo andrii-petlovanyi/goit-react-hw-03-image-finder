@@ -17,20 +17,19 @@ export class App extends Component {
     modalImg: '',
     loader: false,
     hideBtn: true,
+    total: null,
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.searchQ !== this.state.searchQ) {
-      return this.loadSearchingImg();
-    }
+  componentDidUpdate(_, prevState) {
+    const { searchQ, page } = this.state;
 
-    if (prevState.page !== this.state.page) {
+    if (prevState.page !== page || prevState.searchQ !== searchQ) {
       return this.loadSearchingImg();
     }
   }
 
   searchImg = searchQuerry => {
-    if (!searchQuerry) return;
+    if (!searchQuerry || searchQuerry === this.state.searchQ) return;
     this.setState({ searchQ: searchQuerry, page: 1, pictures: [] });
   };
 
@@ -48,9 +47,10 @@ export class App extends Component {
       this.setState(prevState => ({
         pictures: [...prevState.pictures, ...data.hits],
         loader: false,
+        total: data.totalHits,
       }));
 
-      if (this.state.pictures.length >= data.totalHits - 12) {
+      if (this.state.page === Math.ceil(this.state.total / 12)) {
         toast('Sorry, this is the end of list...');
         this.setState({ hideBtn: false });
       }
@@ -78,7 +78,7 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSubmit={this.searchImg} />
-        <Box as="main">
+        <Box as="main" marginTop="30px">
           <ImageGallery
             pictures={this.state.pictures}
             onClick={this.onModalOpen}

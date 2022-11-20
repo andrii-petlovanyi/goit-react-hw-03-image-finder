@@ -25,7 +25,7 @@ export const Overlay = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 99;
+  z-index: 3;
 `;
 
 export default Loader;
